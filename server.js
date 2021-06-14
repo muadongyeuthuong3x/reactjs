@@ -1,21 +1,29 @@
-const express = require('express')
-require('dotenv').config()
-const cors = require('cors');
+const express = require('express');
+const app = express();
 const morgan = require('morgan');
-const databaseDB = require('./db/database');
-const userrouter = require("./routers/Userrouter")
-const app = express()
-app.use(cors());
+require('./database')
+const cors = require('cors');
+const path = require("path");
+const cookieParser = require('cookie-parser')
+require('dotenv').config()
 app.use(morgan('dev'));
+
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser())
 
-databaseDB()
+app.set('port', 8000);
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 
-app.use("/api",userrouter)
+app.use("/api", require('./router/Hang'))
 
+app.use("/api", require('./router/Sanpham'))
 
-const port = process.env.PORT || 5000;
+app.use("/api", require('./router/User'))
 
-app.listen(port, () => {
-    console.debug('App listening');
-});
+app.use("/api/conversations", require('./router/iduserchatuser'))
+
+app.listen(app.get('port'), function () {
+    console.log('oke ' + app.get('port'));
+  });
+  
