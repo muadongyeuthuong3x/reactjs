@@ -1,18 +1,19 @@
 const router = require('express').Router()
 const hangsanpham= require('./../controller/Hangsanpham')
 
-const auth = require('../middleware/auth')
+const { authmiddleware  }= require('../middleware/authmiddleware')
 
-router.route('/addHang').post(hangsanpham.createHang)
+router.post('/addHang',authmiddleware,hangsanpham.createHang)
 
-router.route('/listHang').get(auth ,hangsanpham.listHang)
-
-router.route('/deleteHang/:id').delete(hangsanpham.deleteHang)
-
-router.route('/editHang/:id').get(hangsanpham.editHang)
+router.get("/listhang" ,authmiddleware , hangsanpham.listHang)
 
 
-router.route('/updateHang/:id').put(hangsanpham.updateHang)
+router.route('/deleteHang/:id').delete(authmiddleware,hangsanpham.deleteHang)
+
+router.route('/editHang/:id').get(authmiddleware ,hangsanpham.editHang)
+
+
+router.route('/updateHang/:id').put(authmiddleware ,hangsanpham.updateHang)
 
 
 module.exports = router

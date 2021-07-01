@@ -19,6 +19,9 @@ const sanphamban = new Schema({
     type: Array,
     require:true
     },
+    idhang:{
+      type:String,
+    }
   },
   { timestamps: true });
 

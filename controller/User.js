@@ -32,21 +32,27 @@ const user = {
                 
                    const {email,password} = req.body
     
-                   const userdata =await usermodal.findOne({email:email})
-
-                   if(!userdata)
+                   const userdata1=await usermodal.findOne({email:email})
+                   
+               
+                   if(!userdata1)
                     return res.status(400).json({message: "Tài khoản của bạn sai "})
                  
-                   const isMatch = await bcrypt.compare(password, userdata.password)
+                   const isMatch = await bcrypt.compare(password, userdata1.password)
 
                    if(!isMatch) return res.status(400).json({message: "Mật khẩu của bạn không đúng "})
+                    
+                  var userdata = {
+                    role:userdata1.role,
+                    email:userdata1.email
+                  }
                 
-                   const accesstoken = createAccessToken({id: userdata._id})
+                   const accesstoken = createAccessToken({id: userdata1._id})
 
                    res.json({
                     message: "Bạn đang nhập thành công ",
-                   accesstoken,
-                   userdata 
+                    userdata,
+                    accesstoken
                 })
 
 
@@ -58,7 +64,6 @@ const user = {
         
         try {
            const listuser = await usermodal.find()
-
            res.json({
             listuser
         })
@@ -72,7 +77,7 @@ const user = {
 
 
 const createAccessToken = (user) =>{
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '11m'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '11h'})
 }
 
 module.exports  =  user

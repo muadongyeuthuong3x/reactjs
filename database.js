@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const URI = 'mongodb+srv://manhcuong:manhcuong@cluster0.rzgps.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const URI = 'mongodb+srv://ManhCuong:ManhCuong@cluster0.5wig9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 
 let options = {};

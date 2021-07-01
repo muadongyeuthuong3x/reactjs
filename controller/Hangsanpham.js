@@ -7,7 +7,7 @@ const hangsanpham = {
 
     createHang: async(req,res)=>{
         const hang  = req.body.hangnew
-
+    
        try {
      const hangdatabase = await hangsp.findOne({hangsp:hang})
      
@@ -29,10 +29,12 @@ const hangsanpham = {
     },
 
     listHang : async(req,res)=>{
+    
       const listHang =  await hangsp.find({});
     
       return res.json({listHang})
     },
+    
 
     deleteHang:async(req,res)=>{
 
